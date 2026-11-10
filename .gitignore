@@ -1,0 +1,3 @@
+*.o
+*.d
+*compile_lags.txt
