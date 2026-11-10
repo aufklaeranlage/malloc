@@ -13,6 +13,8 @@ One solution would be to create additional arenas that hold their own informatio
 
 If we use multiple arenas this means that for consilidation we would need either an indicator in a chunk whether it is the last chunk of an arena or be able to calculate this information via an offset to it's arena's base pointer and the chunk's size. In glibc's malloc a `malloc_state` contains a `mchunkptr` called `top` that points to the top most chunk of this arena. A similar solution can be used for a purely `mmap()` based malloc to iterate over the list of chunks based on their size until we hit the address saved in the arena's top variable.
 
+Since we are not using `sbrk()` or `brk()` we want to default to a version that deals with multiple arena's. An initial arena should definitely contain a unconsolidatable set of tiny and small chunks. Further arena's could profit from a similar structure but implementing them as a giant chunk that get's split up by requests might be the easier approach.
+
 ## Instructions
 
 ## Resources
